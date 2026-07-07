@@ -5,15 +5,18 @@ on:
     - cron: '0 0 * * *' 
   workflow_dispatch: 
 
+permissions:
+  contents: write   # <-- এই লাইনটি বটকে ফাইল সেভ করার পারমিশন দেবে
+
 jobs:
   update-data:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4   # <-- ওয়ার্নিং সরাতে v4 করা হলো
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5   # <-- ওয়ার্নিং সরাতে v5 করা হলো
         with:
           python-version: '3.10'
 
@@ -27,4 +30,3 @@ jobs:
           git add fuel_prices.json
           git commit -m "Auto-update daily fuel prices" || exit 0
           git push
-          
