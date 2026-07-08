@@ -1,0 +1,23 @@
+{
+    "last_updated": "2026-07-08 01:50:00.824723",
+    "india": {
+        "west_bengal": {
+            "petrol": 106.03,
+            "diesel": 92.76,
+            "cng": 85.5
+        },
+        "delhi": {
+            "petrol": 94.72,
+            "diesel": 87.62,
+            "cng": 74.09
+        }
+    },
+    "global": {
+        "usa": {
+            "petrol_usd": 3.8
+        },
+        "uae": {
+            "petrol_aed": 3.22
+        }
+    }
+}
