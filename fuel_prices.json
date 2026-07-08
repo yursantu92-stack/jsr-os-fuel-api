@@ -1,23 +1,1117 @@
 {
-    "last_updated": "2026-07-08 01:50:00.824723",
+    "last_updated": "2026-07-08 03:31:28.996556",
     "india": {
-        "west_bengal": {
-            "petrol": 106.03,
-            "diesel": 92.76,
-            "cng": 85.5
+        "andhra_pradesh": {
+            "petrol": 109.5,
+            "diesel": 97.5,
+            "cng": 90.0
+        },
+        "arunachal_pradesh": {
+            "petrol": 93.5,
+            "diesel": 83.5,
+            "cng": 75.0
+        },
+        "assam": {
+            "petrol": 98.0,
+            "diesel": 89.0,
+            "cng": 85.0
+        },
+        "bihar": {
+            "petrol": 107.0,
+            "diesel": 94.0,
+            "cng": 88.0
+        },
+        "chhattisgarh": {
+            "petrol": 102.5,
+            "diesel": 95.5,
+            "cng": 80.0
         },
         "delhi": {
             "petrol": 94.72,
             "diesel": 87.62,
             "cng": 74.09
+        },
+        "goa": {
+            "petrol": 95.5,
+            "diesel": 87.5,
+            "cng": 82.0
+        },
+        "gujarat": {
+            "petrol": 94.5,
+            "diesel": 90.5,
+            "cng": 76.0
+        },
+        "haryana": {
+            "petrol": 95.0,
+            "diesel": 88.0,
+            "cng": 80.0
+        },
+        "himachal_pradesh": {
+            "petrol": 95.5,
+            "diesel": 87.5,
+            "cng": 82.0
+        },
+        "jharkhand": {
+            "petrol": 99.5,
+            "diesel": 94.5,
+            "cng": 85.0
+        },
+        "karnataka": {
+            "petrol": 102.5,
+            "diesel": 88.5,
+            "cng": 82.0
+        },
+        "kerala": {
+            "petrol": 107.5,
+            "diesel": 96.5,
+            "cng": 85.0
+        },
+        "madhya_pradesh": {
+            "petrol": 106.5,
+            "diesel": 91.5,
+            "cng": 90.0
+        },
+        "maharashtra": {
+            "petrol": 104.0,
+            "diesel": 90.5,
+            "cng": 75.0
+        },
+        "manipur": {
+            "petrol": 101.5,
+            "diesel": 87.5,
+            "cng": 82.0
+        },
+        "meghalaya": {
+            "petrol": 96.5,
+            "diesel": 84.5,
+            "cng": 80.0
+        },
+        "mizoram": {
+            "petrol": 95.5,
+            "diesel": 82.5,
+            "cng": 80.0
+        },
+        "nagaland": {
+            "petrol": 98.5,
+            "diesel": 86.5,
+            "cng": 82.0
+        },
+        "odisha": {
+            "petrol": 101.0,
+            "diesel": 92.5,
+            "cng": 85.0
+        },
+        "punjab": {
+            "petrol": 96.5,
+            "diesel": 87.5,
+            "cng": 82.0
+        },
+        "rajasthan": {
+            "petrol": 104.5,
+            "diesel": 90.5,
+            "cng": 85.0
+        },
+        "sikkim": {
+            "petrol": 101.5,
+            "diesel": 89.5,
+            "cng": 82.0
+        },
+        "tamil_nadu": {
+            "petrol": 100.5,
+            "diesel": 92.5,
+            "cng": 84.0
+        },
+        "telangana": {
+            "petrol": 107.5,
+            "diesel": 95.5,
+            "cng": 92.0
+        },
+        "tripura": {
+            "petrol": 97.5,
+            "diesel": 86.5,
+            "cng": 82.0
+        },
+        "uttar_pradesh": {
+            "petrol": 94.5,
+            "diesel": 87.5,
+            "cng": 79.0
+        },
+        "uttarakhand": {
+            "petrol": 93.5,
+            "diesel": 88.5,
+            "cng": 83.0
+        },
+        "west_bengal": {
+            "petrol": 106.03,
+            "diesel": 92.76,
+            "cng": 85.5
         }
     },
     "global": {
-        "usa": {
-            "petrol_usd": 3.8
+        "af": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
         },
-        "uae": {
-            "petrol_aed": 3.22
+        "al": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "dz": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ad": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ao": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ag": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ar": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "am": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "au": {
+            "petrol_usd": 1.35,
+            "diesel": 1.4,
+            "cng": 1.1
+        },
+        "at": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "az": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "bs": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "bh": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "bd": {
+            "petrol_usd": 1.12,
+            "diesel": 0.98,
+            "cng": 0.5
+        },
+        "bb": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "by": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "be": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "bz": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "bj": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "bt": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "bo": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ba": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "bw": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "br": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "bn": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "bg": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "bf": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "bi": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "cv": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "kh": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "cm": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ca": {
+            "petrol_usd": 1.25,
+            "diesel": 1.3,
+            "cng": 0.95
+        },
+        "cf": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "td": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "cl": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "cn": {
+            "petrol_usd": 1.15,
+            "diesel": 1.0,
+            "cng": 0.75
+        },
+        "co": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "km": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "cd": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "cg": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "cr": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ci": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "hr": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "cu": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "cy": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "cz": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "dk": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "dj": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "dm": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "do": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ec": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "eg": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "sv": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "gq": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "er": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ee": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "sz": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "et": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "fj": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "fi": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "fr": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ga": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "gm": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ge": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "de": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "gh": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "gr": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "gd": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "gt": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "gn": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "gw": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "gy": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ht": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "hn": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "hu": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "is": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "in": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "id": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ir": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "iq": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ie": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "il": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "it": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "jm": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "jp": {
+            "petrol_usd": 1.2,
+            "diesel": 1.05,
+            "cng": 0.8
+        },
+        "jo": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "kz": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ke": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ki": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "kp": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "kr": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "kw": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "kg": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "la": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "lv": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "lb": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ls": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "lr": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ly": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "li": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "lt": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "lu": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "mg": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "mw": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "my": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "mv": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ml": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "mt": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "mh": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "mr": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "mu": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "mx": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "fm": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "md": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "mc": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "mn": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "me": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ma": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "mz": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "mm": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "na": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "nr": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "np": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "nl": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "nz": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ni": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ne": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ng": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "mk": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "no": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "om": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "pk": {
+            "petrol_usd": 0.95,
+            "diesel": 1.0,
+            "cng": 0.7
+        },
+        "pw": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "pa": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "pg": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "py": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "pe": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ph": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "pl": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "pt": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "qa": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ro": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ru": {
+            "petrol_usd": 0.6,
+            "diesel": 0.65,
+            "cng": 0.3
+        },
+        "rw": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "kn": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "lc": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "vc": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ws": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "sm": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "st": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "sa": {
+            "petrol_usd": 0.62,
+            "diesel": 0.3,
+            "cng": 0.2
+        },
+        "sn": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "rs": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "sc": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "sl": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "sg": {
+            "petrol_usd": 2.1,
+            "diesel": 2.0,
+            "cng": 1.8
+        },
+        "sk": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "si": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "sb": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "so": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "za": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ss": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "es": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "lk": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "sd": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "sr": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "se": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ch": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "sy": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "tj": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "tz": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "th": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "tl": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "tg": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "to": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "tt": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "tn": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "tr": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "tm": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "tv": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ug": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ua": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ae": {
+            "petrol_aed": 3.22,
+            "diesel": 3.3,
+            "cng": 2.9
+        },
+        "gb": {
+            "petrol_usd": 1.85,
+            "diesel": 1.9,
+            "cng": 1.2
+        },
+        "us": {
+            "petrol_usd": 1.05,
+            "diesel": 1.1,
+            "cng": 0.9
+        },
+        "uy": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "uz": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "vu": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ve": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "vn": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "ye": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "zm": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
+        },
+        "zw": {
+            "petrol_usd": 1.25,
+            "diesel": 1.15,
+            "cng": 0.85
         }
     }
 }
