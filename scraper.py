@@ -123,4 +123,4 @@ except Exception as e:
 with open('fuel_prices.json', 'w') as f:
     json.dump(data, f, indent=4)
     
-print("JSR-OS Global Fuel API updated with 195 countries successfully!")
+print("JSR-OS Global Fuel API updated with 195 countries successfully!") 
