@@ -29,4 +29,5 @@ jobs:
           git config --global user.email "bot@jsrdigital.in"
           git add fuel_prices.json
           git commit -m "Auto-update daily fuel prices" || exit 0
+          git pull --rebase origin main   # <-- এই ম্যাজিক লাইনটি কনফ্লিক্ট বা Rejected এরর চিরতরে দূর করবে
           git push
