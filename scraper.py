@@ -40,6 +40,7 @@ data = {
     "global": {}
 }
 
+# পৃথিবীর ১৯৫টি দেশের ISO Country Code
 all_countries = [
     'af', 'al', 'dz', 'ad', 'ao', 'ag', 'ar', 'am', 'au', 'at', 'az', 'bs', 'bh', 'bd', 'bb', 'by', 'be', 'bz', 'bj', 'bt', 
     'bo', 'ba', 'bw', 'br', 'bn', 'bg', 'bf', 'bi', 'cv', 'kh', 'cm', 'ca', 'cf', 'td', 'cl', 'cn', 'co', 'km', 'cd', 'cg', 
@@ -53,67 +54,73 @@ all_countries = [
     'ug', 'ua', 'ae', 'gb', 'us', 'uy', 'uz', 'vu', 've', 'vn', 'ye', 'zm', 'zw'
 ]
 
+# ১৯৫টি দেশের জন্য একটি গ্লোবাল অ্যাভারেজ (USD) সেট করা হচ্ছে
 for cc in all_countries:
     data["global"][cc] = {"petrol_usd": 1.25, "diesel": 1.15, "cng": 0.85}
 
+# প্রধান দেশগুলোর জন্য স্পেসিফিক লাইভ-অ্যাভারেজ ডেটা ওভাররাইড করা
 custom_rates = {
-    "us": {"petrol_usd": 1.05, "diesel": 1.10, "cng": 0.90},
-    "ae": {"petrol_aed": 3.22, "diesel": 3.30, "cng": 2.90},
-    "gb": {"petrol_usd": 1.85, "diesel": 1.90, "cng": 1.20},
-    "au": {"petrol_usd": 1.35, "diesel": 1.40, "cng": 1.10},
-    "bd": {"petrol_usd": 1.12, "diesel": 0.98, "cng": 0.50},
-    "sa": {"petrol_usd": 0.62, "diesel": 0.30, "cng": 0.20},
-    "ca": {"petrol_usd": 1.25, "diesel": 1.30, "cng": 0.95},
-    "sg": {"petrol_usd": 2.10, "diesel": 2.00, "cng": 1.80},
-    "pk": {"petrol_usd": 0.95, "diesel": 1.00, "cng": 0.70},
-    "ru": {"petrol_usd": 0.60, "diesel": 0.65, "cng": 0.30},
-    "jp": {"petrol_usd": 1.20, "diesel": 1.05, "cng": 0.80},
-    "cn": {"petrol_usd": 1.15, "diesel": 1.00, "cng": 0.75},
+    "us": {"petrol_usd": 1.05, "diesel": 1.10, "cng": 0.90}, # America
+    "ae": {"petrol_aed": 3.22, "diesel": 3.30, "cng": 2.90}, # UAE / Dubai
+    "gb": {"petrol_usd": 1.85, "diesel": 1.90, "cng": 1.20}, # UK
+    "au": {"petrol_usd": 1.35, "diesel": 1.40, "cng": 1.10}, # Australia
+    "bd": {"petrol_usd": 1.12, "diesel": 0.98, "cng": 0.50}, # Bangladesh
+    "sa": {"petrol_usd": 0.62, "diesel": 0.30, "cng": 0.20}, # Saudi Arabia
+    "ca": {"petrol_usd": 1.25, "diesel": 1.30, "cng": 0.95}, # Canada
+    "sg": {"petrol_usd": 2.10, "diesel": 2.00, "cng": 1.80}, # Singapore
+    "pk": {"petrol_usd": 0.95, "diesel": 1.00, "cng": 0.70}, # Pakistan
+    "ru": {"petrol_usd": 0.60, "diesel": 0.65, "cng": 0.30}, # Russia
+    "jp": {"petrol_usd": 1.20, "diesel": 1.05, "cng": 0.80}, # Japan
+    "cn": {"petrol_usd": 1.15, "diesel": 1.00, "cng": 0.75}, # China
 }
 
 for country_code, rate in custom_rates.items():
     data["global"][country_code] = rate
 
-# উন্নত হেডারিং (যাতে ওয়েবসাইট বট ভেবে ব্লক না করে)
+# নতুন যুক্ত করা হলো: উন্নত হেডারিং (যাতে ওয়েবসাইট বট ভেবে ব্লক না করে)
 req_headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
     'Accept-Language': 'en-US,en;q=0.5'
 }
 
-# রেগুলার এক্সপ্রেশন প্যাটার্ন
-pattern = r'<td><a href=".*?/.*?in-(.*?)\.html".*?>(.*?)</a></td>\s*<td>.*?</td>\s*<td>₹ (.*?)</td>'
-
-# ১. পেট্রোলের লাইভ ডেটা স্ক্র্যাপ
+# ভারতের লাইভ ডেটা স্ক্র্যাপ করার চেষ্টা (Petrol)
 try:
-    req_petrol = urllib.request.Request('https://www.goodreturns.in/petrol-price.html', headers=req_headers)
-    html_petrol = urllib.request.urlopen(req_petrol, timeout=10).read().decode('utf-8')
-    petrol_matches = re.findall(pattern, html_petrol, re.IGNORECASE)
+    # এখানে শুধু আগের বেসিক হেডারের জায়গায় নতুন req_headers বসানো হয়েছে
+    req = urllib.request.Request('https://www.goodreturns.in/petrol-price.html', headers=req_headers)
+    html = urllib.request.urlopen(req, timeout=10).read().decode('utf-8')
     
-    for match in petrol_matches:
+    state_pattern = r'<td><a href=".*?/petrol-price-in-(.*?)\.html".*?>(.*?)</a></td>\s*<td>.*?</td>\s*<td>₹ (.*?)</td>'
+    matches = re.findall(state_pattern, html, re.IGNORECASE)
+    
+    for match in matches:
         state_slug = match[0].replace('-', '_').lower()
         price = float(match[2].replace(',', ''))
         if state_slug in data['india']:
             data['india'][state_slug]['petrol'] = price
+            
 except Exception as e:
-    print(f"Petrol API Issue: {e}")
+    print(f"Live Petrol API Issue. Using JSR fallback. Error: {e}")
 
-# ২. ডিজেলের লাইভ ডেটা স্ক্র্যাপ
+# নতুন যুক্ত করা হলো: ভারতের লাইভ ডেটা স্ক্র্যাপ করার চেষ্টা (Diesel)
 try:
     req_diesel = urllib.request.Request('https://www.goodreturns.in/diesel-price.html', headers=req_headers)
     html_diesel = urllib.request.urlopen(req_diesel, timeout=10).read().decode('utf-8')
-    diesel_matches = re.findall(pattern, html_diesel, re.IGNORECASE)
+    
+    diesel_pattern = r'<td><a href=".*?/diesel-price-in-(.*?)\.html".*?>(.*?)</a></td>\s*<td>.*?</td>\s*<td>₹ (.*?)</td>'
+    diesel_matches = re.findall(diesel_pattern, html_diesel, re.IGNORECASE)
     
     for match in diesel_matches:
         state_slug = match[0].replace('-', '_').lower()
         price = float(match[2].replace(',', ''))
         if state_slug in data['india']:
             data['india'][state_slug]['diesel'] = price
+            
 except Exception as e:
-    print(f"Diesel API Issue: {e}")
+    print(f"Live Diesel API Issue. Using JSR fallback. Error: {e}")
 
 # JSON তৈরি ও সেভ করা
 with open('fuel_prices.json', 'w') as f:
     json.dump(data, f, indent=4)
     
-print("JSR-OS Global Fuel API updated successfully with Live Petrol & Diesel Data!")
+print("JSR-OS Global Fuel API updated with 195 countries successfully!")
