@@ -1,7 +1,7 @@
 import json
 import datetime
 import urllib.request
-import re
+from bs4 import BeautifulSoup  # <-- এই ম্যাজিক লাইব্রেরিটি এখন GitHub নিজে থেকেই ইন্সটল করে নেবে!
 
 # ভারতের ২৮টি রাজ্যের কমপ্লিট ডেটাবেস (আপডেটেড ফলব্যাক)
 data = {
@@ -76,49 +76,56 @@ for country_code, rate in custom_rates.items():
 
 req_headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    'Referer': 'https://www.google.com/'
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
 }
 
-# নতুন ফ্লেক্সিবল Regex প্যাটার্ন - ওয়েবসাইটের নতুন ক্লাসের সাথে মানিয়ে নেওয়ার জন্য
-pattern = r'<a href="[^"]*?-in-([^"]+?)\.html"[^>]*?>.*?</a>.*?<td[^>]*>.*?</td>.*?<td[^>]*>(?:₹\s*)?([\d\.]+)</td>'
-
-# পেট্রোল লাইভ ডেটা স্ক্র্যাপ
+# পেট্রোল লাইভ ডেটা স্ক্র্যাপ (BeautifulSoup দিয়ে)
 try:
-    print("Fetching live petrol prices...")
+    print("Fetching live petrol prices using BeautifulSoup...")
     req_petrol = urllib.request.Request('https://www.goodreturns.in/petrol-price.html', headers=req_headers)
-    html_petrol = urllib.request.urlopen(req_petrol, timeout=15).read().decode('utf-8')
+    html_petrol = urllib.request.urlopen(req_petrol, timeout=15).read()
+    soup = BeautifulSoup(html_petrol, 'html.parser')
     
-    # অপ্রয়োজনীয় লাইনব্রেক মুছে ফেলা হচ্ছে যাতে Regex এক লাইনে ডেটা ধরতে পারে
-    html_petrol_cleaned = re.sub(r'[\r\n\t]+', ' ', html_petrol)
-    
-    petrol_matches = re.findall(pattern, html_petrol_cleaned, re.IGNORECASE)
-    
-    for match in petrol_matches:
-        state_slug = match[0].replace('-', '_').lower()
-        price = float(match[1])
-        if state_slug in data['india']:
-            data['india'][state_slug]['petrol'] = price
-    print("Petrol data updated!")
+    for a_tag in soup.find_all('a', href=True):
+        if '-in-' in a_tag['href'] and '.html' in a_tag['href']:
+            state_slug = a_tag['href'].split('-in-')[-1].replace('.html', '').replace('-', '_').lower()
+            
+            if state_slug in data['india']:
+                row = a_tag.find_parent('tr')
+                if row:
+                    cols = row.find_all('td')
+                    if len(cols) >= 3:
+                        price_text = cols[2].text.replace('₹', '').replace(',', '').strip()
+                        try:
+                            data['india'][state_slug]['petrol'] = float(price_text)
+                        except ValueError:
+                            pass
+    print("Petrol data successfully fetched and updated!")
 except Exception as e:
     print(f"Petrol Error: {e}")
 
-# ডিজেল লাইভ ডেটা স্ক্র্যাপ
+# ডিজেল লাইভ ডেটা স্ক্র্যাপ (BeautifulSoup দিয়ে)
 try:
-    print("Fetching live diesel prices...")
+    print("Fetching live diesel prices using BeautifulSoup...")
     req_diesel = urllib.request.Request('https://www.goodreturns.in/diesel-price.html', headers=req_headers)
-    html_diesel = urllib.request.urlopen(req_diesel, timeout=15).read().decode('utf-8')
+    html_diesel = urllib.request.urlopen(req_diesel, timeout=15).read()
+    soup = BeautifulSoup(html_diesel, 'html.parser')
     
-    html_diesel_cleaned = re.sub(r'[\r\n\t]+', ' ', html_diesel)
-    
-    diesel_matches = re.findall(pattern, html_diesel_cleaned, re.IGNORECASE)
-    
-    for match in diesel_matches:
-        state_slug = match[0].replace('-', '_').lower()
-        price = float(match[1])
-        if state_slug in data['india']:
-            data['india'][state_slug]['diesel'] = price
-    print("Diesel data updated!")
+    for a_tag in soup.find_all('a', href=True):
+        if '-in-' in a_tag['href'] and '.html' in a_tag['href']:
+            state_slug = a_tag['href'].split('-in-')[-1].replace('.html', '').replace('-', '_').lower()
+            
+            if state_slug in data['india']:
+                row = a_tag.find_parent('tr')
+                if row:
+                    cols = row.find_all('td')
+                    if len(cols) >= 3:
+                        price_text = cols[2].text.replace('₹', '').replace(',', '').strip()
+                        try:
+                            data['india'][state_slug]['diesel'] = float(price_text)
+                        except ValueError:
+                            pass
+    print("Diesel data successfully fetched and updated!")
 except Exception as e:
     print(f"Diesel Error: {e}")
 
@@ -126,4 +133,4 @@ except Exception as e:
 with open('fuel_prices.json', 'w', encoding='utf-8') as f:
     json.dump(data, f, indent=4, ensure_ascii=False)
     
-print("JSR-OS Global Fuel API updated successfully!")
+print("JSR-OS Global Fuel API updated successfully with Pro Auto-Scraper!")
