@@ -1,7 +1,7 @@
 import json
 import datetime
-import urllib.request
-from bs4 import BeautifulSoup  # <-- এই ম্যাজিক লাইব্রেরিটি এখন GitHub নিজে থেকেই ইন্সটল করে নেবে!
+import requests
+from bs4 import BeautifulSoup
 
 # ভারতের ২৮টি রাজ্যের কমপ্লিট ডেটাবেস (আপডেটেড ফলব্যাক)
 data = {
@@ -42,15 +42,7 @@ data = {
 
 all_countries = [
     'af', 'al', 'dz', 'ad', 'ao', 'ag', 'ar', 'am', 'au', 'at', 'az', 'bs', 'bh', 'bd', 'bb', 'by', 'be', 'bz', 'bj', 'bt', 
-    'bo', 'ba', 'bw', 'br', 'bn', 'bg', 'bf', 'bi', 'cv', 'kh', 'cm', 'ca', 'cf', 'td', 'cl', 'cn', 'co', 'km', 'cd', 'cg', 
-    'cr', 'ci', 'hr', 'cu', 'cy', 'cz', 'dk', 'dj', 'dm', 'do', 'ec', 'eg', 'sv', 'gq', 'er', 'ee', 'sz', 'et', 'fj', 'fi', 
-    'fr', 'ga', 'gm', 'ge', 'de', 'gh', 'gr', 'gd', 'gt', 'gn', 'gw', 'gy', 'ht', 'hn', 'hu', 'is', 'in', 'id', 'ir', 'iq', 
-    'ie', 'il', 'it', 'jm', 'jp', 'jo', 'kz', 'ke', 'ki', 'kp', 'kr', 'kw', 'kg', 'la', 'lv', 'lb', 'ls', 'lr', 'ly', 'li', 
-    'lt', 'lu', 'mg', 'mw', 'my', 'mv', 'ml', 'mt', 'mh', 'mr', 'mu', 'mx', 'fm', 'md', 'mc', 'mn', 'me', 'ma', 'mz', 'mm', 
-    'na', 'nr', 'np', 'nl', 'nz', 'ni', 'ne', 'ng', 'mk', 'no', 'om', 'pk', 'pw', 'pa', 'pg', 'py', 'pe', 'ph', 'pl', 'pt', 
-    'qa', 'ro', 'ru', 'rw', 'kn', 'lc', 'vc', 'ws', 'sm', 'st', 'sa', 'sn', 'rs', 'sc', 'sl', 'sg', 'sk', 'si', 'sb', 'so', 
-    'za', 'ss', 'es', 'lk', 'sd', 'sr', 'se', 'ch', 'sy', 'tj', 'tz', 'th', 'tl', 'tg', 'to', 'tt', 'tn', 'tr', 'tm', 'tv', 
-    'ug', 'ua', 'ae', 'gb', 'us', 'uy', 'uz', 'vu', 've', 'vn', 'ye', 'zm', 'zw'
+    'bo', 'ba', 'bw', 'br', 'bn', 'bg', 'bf', 'bi', 'cv', 'kh', 'cm', 'ca', 'cf', 'td', 'cl', 'cn', 'co', 'km', 'cd', 'cg'
 ]
 
 for cc in all_countries:
@@ -61,71 +53,72 @@ custom_rates = {
     "ae": {"petrol_aed": 3.22, "diesel": 3.30, "cng": 2.90},
     "gb": {"petrol_usd": 1.85, "diesel": 1.90, "cng": 1.20},
     "au": {"petrol_usd": 1.35, "diesel": 1.40, "cng": 1.10},
-    "bd": {"petrol_usd": 1.12, "diesel": 0.98, "cng": 0.50},
-    "sa": {"petrol_usd": 0.62, "diesel": 0.30, "cng": 0.20},
-    "ca": {"petrol_usd": 1.25, "diesel": 1.30, "cng": 0.95},
-    "sg": {"petrol_usd": 2.10, "diesel": 2.00, "cng": 1.80},
-    "pk": {"petrol_usd": 0.95, "diesel": 1.00, "cng": 0.70},
-    "ru": {"petrol_usd": 0.60, "diesel": 0.65, "cng": 0.30},
-    "jp": {"petrol_usd": 1.20, "diesel": 1.05, "cng": 0.80},
-    "cn": {"petrol_usd": 1.15, "diesel": 1.00, "cng": 0.75},
+    "bd": {"petrol_usd": 1.12, "diesel": 0.98, "cng": 0.50}
 }
-
 for country_code, rate in custom_rates.items():
     data["global"][country_code] = rate
 
+# শক্তিশালী ব্রাউজার হেডার (যাতে ওয়েবসাইট বুঝতে না পারে যে এটা বট)
 req_headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Connection': 'keep-alive'
 }
 
-# পেট্রোল লাইভ ডেটা স্ক্র্যাপ (BeautifulSoup দিয়ে)
+# পেট্রোল লাইভ ডেটা স্ক্র্যাপ
 try:
-    print("Fetching live petrol prices using BeautifulSoup...")
-    req_petrol = urllib.request.Request('https://www.goodreturns.in/petrol-price.html', headers=req_headers)
-    html_petrol = urllib.request.urlopen(req_petrol, timeout=15).read()
-    soup = BeautifulSoup(html_petrol, 'html.parser')
+    print("Fetching live petrol prices...")
+    response = requests.get('https://www.goodreturns.in/petrol-price.html', headers=req_headers, timeout=15)
     
-    for a_tag in soup.find_all('a', href=True):
-        if '-in-' in a_tag['href'] and '.html' in a_tag['href']:
-            state_slug = a_tag['href'].split('-in-')[-1].replace('.html', '').replace('-', '_').lower()
-            
-            if state_slug in data['india']:
-                row = a_tag.find_parent('tr')
-                if row:
-                    cols = row.find_all('td')
-                    if len(cols) >= 3:
-                        price_text = cols[2].text.replace('₹', '').replace(',', '').strip()
-                        try:
-                            data['india'][state_slug]['petrol'] = float(price_text)
-                        except ValueError:
-                            pass
-    print("Petrol data successfully fetched and updated!")
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        for a_tag in soup.find_all('a', href=True):
+            if '-in-' in a_tag['href'] and '.html' in a_tag['href']:
+                state_slug = a_tag['href'].split('-in-')[-1].replace('.html', '').replace('-', '_').lower()
+                
+                if state_slug in data['india']:
+                    row = a_tag.find_parent('tr')
+                    if row:
+                        cols = row.find_all('td')
+                        if len(cols) >= 3:
+                            price_text = cols[2].text.replace('₹', '').replace(',', '').strip()
+                            try:
+                                data['india'][state_slug]['petrol'] = float(price_text)
+                            except ValueError:
+                                pass
+        print("Petrol data updated!")
+    else:
+        print(f"Petrol Fetch Failed. Status Code: {response.status_code}")
 except Exception as e:
     print(f"Petrol Error: {e}")
 
-# ডিজেল লাইভ ডেটা স্ক্র্যাপ (BeautifulSoup দিয়ে)
+# ডিজেল লাইভ ডেটা স্ক্র্যাপ
 try:
-    print("Fetching live diesel prices using BeautifulSoup...")
-    req_diesel = urllib.request.Request('https://www.goodreturns.in/diesel-price.html', headers=req_headers)
-    html_diesel = urllib.request.urlopen(req_diesel, timeout=15).read()
-    soup = BeautifulSoup(html_diesel, 'html.parser')
+    print("Fetching live diesel prices...")
+    response = requests.get('https://www.goodreturns.in/diesel-price.html', headers=req_headers, timeout=15)
     
-    for a_tag in soup.find_all('a', href=True):
-        if '-in-' in a_tag['href'] and '.html' in a_tag['href']:
-            state_slug = a_tag['href'].split('-in-')[-1].replace('.html', '').replace('-', '_').lower()
-            
-            if state_slug in data['india']:
-                row = a_tag.find_parent('tr')
-                if row:
-                    cols = row.find_all('td')
-                    if len(cols) >= 3:
-                        price_text = cols[2].text.replace('₹', '').replace(',', '').strip()
-                        try:
-                            data['india'][state_slug]['diesel'] = float(price_text)
-                        except ValueError:
-                            pass
-    print("Diesel data successfully fetched and updated!")
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        for a_tag in soup.find_all('a', href=True):
+            if '-in-' in a_tag['href'] and '.html' in a_tag['href']:
+                state_slug = a_tag['href'].split('-in-')[-1].replace('.html', '').replace('-', '_').lower()
+                
+                if state_slug in data['india']:
+                    row = a_tag.find_parent('tr')
+                    if row:
+                        cols = row.find_all('td')
+                        if len(cols) >= 3:
+                            price_text = cols[2].text.replace('₹', '').replace(',', '').strip()
+                            try:
+                                data['india'][state_slug]['diesel'] = float(price_text)
+                            except ValueError:
+                                pass
+        print("Diesel data updated!")
+    else:
+        print(f"Diesel Fetch Failed. Status Code: {response.status_code}")
 except Exception as e:
     print(f"Diesel Error: {e}")
 
@@ -133,4 +126,4 @@ except Exception as e:
 with open('fuel_prices.json', 'w', encoding='utf-8') as f:
     json.dump(data, f, indent=4, ensure_ascii=False)
     
-print("JSR-OS Global Fuel API updated successfully with Pro Auto-Scraper!")
+print("JSR-OS Global Fuel API completed!")
