@@ -35,13 +35,11 @@ data = {
         "tripura": {"petrol": 97.50, "diesel": 86.50, "cng": 82.00},
         "uttar_pradesh": {"petrol": 94.50, "diesel": 87.50, "cng": 79.00},
         "uttarakhand": {"petrol": 93.50, "diesel": 88.50, "cng": 83.00},
-        # আজকের লাইভ রেট অনুযায়ী আপডেট করা হলো (Google Data)
         "west_bengal": {"petrol": 113.87, "diesel": 100.15, "cng": 94.82}
     },
     "global": {}
 }
 
-# পৃথিবীর ১৯৫টি দেশের ISO Country Code
 all_countries = [
     'af', 'al', 'dz', 'ad', 'ao', 'ag', 'ar', 'am', 'au', 'at', 'az', 'bs', 'bh', 'bd', 'bb', 'by', 'be', 'bz', 'bj', 'bt', 
     'bo', 'ba', 'bw', 'br', 'bn', 'bg', 'bf', 'bi', 'cv', 'kh', 'cm', 'ca', 'cf', 'td', 'cl', 'cn', 'co', 'km', 'cd', 'cg', 
@@ -76,45 +74,56 @@ custom_rates = {
 for country_code, rate in custom_rates.items():
     data["global"][country_code] = rate
 
-# Plan B: Google Bot Bypass Headers
 req_headers = {
-    'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     'Referer': 'https://www.google.com/'
 }
 
-pattern = r'<td><a href=".*?/.*?in-(.*?)\.html".*?>(.*?)</a></td>\s*<td>.*?</td>\s*<td>₹ (.*?)</td>'
+# নতুন ফ্লেক্সিবল Regex প্যাটার্ন - ওয়েবসাইটের নতুন ক্লাসের সাথে মানিয়ে নেওয়ার জন্য
+pattern = r'<a href="[^"]*?-in-([^"]+?)\.html"[^>]*?>.*?</a>.*?<td[^>]*>.*?</td>.*?<td[^>]*>(?:₹\s*)?([\d\.]+)</td>'
 
 # পেট্রোল লাইভ ডেটা স্ক্র্যাপ
 try:
+    print("Fetching live petrol prices...")
     req_petrol = urllib.request.Request('https://www.goodreturns.in/petrol-price.html', headers=req_headers)
-    html_petrol = urllib.request.urlopen(req_petrol, timeout=10).read().decode('utf-8')
-    petrol_matches = re.findall(pattern, html_petrol, re.IGNORECASE)
+    html_petrol = urllib.request.urlopen(req_petrol, timeout=15).read().decode('utf-8')
+    
+    # অপ্রয়োজনীয় লাইনব্রেক মুছে ফেলা হচ্ছে যাতে Regex এক লাইনে ডেটা ধরতে পারে
+    html_petrol_cleaned = re.sub(r'[\r\n\t]+', ' ', html_petrol)
+    
+    petrol_matches = re.findall(pattern, html_petrol_cleaned, re.IGNORECASE)
     
     for match in petrol_matches:
         state_slug = match[0].replace('-', '_').lower()
-        price = float(match[2].replace(',', ''))
+        price = float(match[1])
         if state_slug in data['india']:
             data['india'][state_slug]['petrol'] = price
+    print("Petrol data updated!")
 except Exception as e:
     print(f"Petrol Error: {e}")
 
 # ডিজেল লাইভ ডেটা স্ক্র্যাপ
 try:
+    print("Fetching live diesel prices...")
     req_diesel = urllib.request.Request('https://www.goodreturns.in/diesel-price.html', headers=req_headers)
-    html_diesel = urllib.request.urlopen(req_diesel, timeout=10).read().decode('utf-8')
-    diesel_matches = re.findall(pattern, html_diesel, re.IGNORECASE)
+    html_diesel = urllib.request.urlopen(req_diesel, timeout=15).read().decode('utf-8')
+    
+    html_diesel_cleaned = re.sub(r'[\r\n\t]+', ' ', html_diesel)
+    
+    diesel_matches = re.findall(pattern, html_diesel_cleaned, re.IGNORECASE)
     
     for match in diesel_matches:
         state_slug = match[0].replace('-', '_').lower()
-        price = float(match[2].replace(',', ''))
+        price = float(match[1])
         if state_slug in data['india']:
             data['india'][state_slug]['diesel'] = price
+    print("Diesel data updated!")
 except Exception as e:
     print(f"Diesel Error: {e}")
 
 # JSON তৈরি ও সেভ
-with open('fuel_prices.json', 'w') as f:
-    json.dump(data, f, indent=4)
+with open('fuel_prices.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, indent=4, ensure_ascii=False)
     
 print("JSR-OS Global Fuel API updated successfully!")
