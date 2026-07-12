@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-# ভারতের ২৮টি রাজ্যের কমপ্লিট ডেটাবেস (আপডেটেড ফলব্যাক)
+# ভারতের ২৮টি রাজ্যের কমপ্লিট ডেটাবেস
 data = {
     "last_updated": str(datetime.datetime.now()),
     "india": {
@@ -44,12 +44,38 @@ data = {
     }
 }
 
+# শহরের নাম থেকে রাজ্যের নাম বের করার ম্যাজিক ম্যাপ
+city_to_state_map = {
+    "kolkata": "west_bengal",
+    "mumbai": "maharashtra",
+    "chennai": "tamil_nadu",
+    "bangalore": "karnataka",
+    "bengaluru": "karnataka",
+    "hyderabad": "telangana",
+    "jaipur": "rajasthan",
+    "lucknow": "uttar_pradesh",
+    "patna": "bihar",
+    "bhopal": "madhya_pradesh",
+    "bhubaneswar": "odisha",
+    "guwahati": "assam",
+    "thiruvananthapuram": "kerala",
+    "trivandrum": "kerala",
+    "ahmedabad": "gujarat",
+    "gandhinagar": "gujarat",
+    "shimla": "himachal_pradesh",
+    "ranchi": "jharkhand",
+    "raipur": "chhattisgarh",
+    "panaji": "goa",
+    "goa": "goa",
+    "delhi": "delhi",
+    "new delhi": "delhi"
+}
+
 req_headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
 }
 
 def fetch_fuel_data(fuel_type):
-    # Multi-source API (প্রথমে NDTV, ফেইল হলে BankBazaar)
     urls = [
         f"https://www.ndtv.com/fuel-prices/{fuel_type}-price-in-india",
         f"https://www.bankbazaar.com/fuel/{fuel_type}-price-india.html"
@@ -64,7 +90,6 @@ def fetch_fuel_data(fuel_type):
                 soup = BeautifulSoup(res.text, 'html.parser')
                 success_count = 0
                 
-                # ওয়েবসাইটের যেকোনো টেবিল থেকে ডেটা বের করার ম্যাজিক লজিক
                 for table in soup.find_all('table'):
                     for row in table.find_all('tr'):
                         cols = row.find_all(['td', 'th'])
@@ -72,20 +97,35 @@ def fetch_fuel_data(fuel_type):
                             col0_text = cols[0].text.strip().lower()
                             col1_text = cols[1].text.strip()
                             
-                            # রাজ্যের নাম মিলিয়ে দেখা
-                            for state_key in data['india'].keys():
-                                search_state = state_key.replace("_", " ")
-                                if search_state in col0_text:
-                                    # দাম থেকে ফালতু টেক্সট (যেমন: Rs. বা /Ltr) বাদ দিয়ে শুধু সংখ্যা বের করা
-                                    price_match = re.search(r'\b\d{2,3}\.\d{2}\b', col1_text)
-                                    if price_match:
-                                        data['india'][state_key][fuel_type] = float(price_match.group())
-                                        success_count += 1
+                            # দাম ফিল্টার (শুধুমাত্র 70.00 থেকে 129.99 এর ভেতরের সংখ্যা ধরবে)
+                            price_match = re.search(r'\b(?:7|8|9|10|11|12)\d\.\d{2}\b', col1_text)
+                            
+                            if price_match:
+                                price_val = float(price_match.group())
+                                matched_state = None
+                                
+                                # ১. সরাসরি রাজ্যের নাম খুঁজবে
+                                for state_key in data['india'].keys():
+                                    search_state = state_key.replace("_", " ")
+                                    if search_state in col0_text:
+                                        matched_state = state_key
                                         break
+                                
+                                # ২. রাজ্যের নাম না পেলে শহরের নাম থেকে খুঁজবে
+                                if not matched_state:
+                                    for city, state in city_to_state_map.items():
+                                        if city in col0_text:
+                                            matched_state = state
+                                            break
+                                            
+                                # ৩. ডেটা আপডেট
+                                if matched_state:
+                                    data['india'][matched_state][fuel_type] = price_val
+                                    success_count += 1
                 
-                if success_count > 10:
-                    print(f"✅ Successfully updated {success_count} states for {fuel_type} from {url}")
-                    return # প্রথম ওয়েবসাইট থেকে কাজ হয়ে গেলে লুপ বন্ধ করে দেবে
+                if success_count > 5:
+                    print(f"✅ Updated {success_count} states for {fuel_type} from {url}")
+                    return 
             else:
                 print(f"⚠️ Blocked by {url} (Status: {res.status_code})")
                 
@@ -100,4 +140,4 @@ fetch_fuel_data('diesel')
 with open('fuel_prices.json', 'w', encoding='utf-8') as f:
     json.dump(data, f, indent=4, ensure_ascii=False)
     
-print("JSR-OS Global Fuel API updated successfully using Smart Scraper!")
+print("JSR-OS Global Fuel API updated successfully with AI City-Mapper!")
