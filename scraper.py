@@ -1,6 +1,6 @@
 import json
 import datetime
-import requests
+import cloudscraper
 from bs4 import BeautifulSoup
 
 # ভারতের ২৮টি রাজ্যের কমপ্লিট ডেটাবেস (আপডেটেড ফলব্যাক)
@@ -40,44 +40,33 @@ data = {
     "global": {}
 }
 
-all_countries = [
-    'af', 'al', 'dz', 'ad', 'ao', 'ag', 'ar', 'am', 'au', 'at', 'az', 'bs', 'bh', 'bd', 'bb', 'by', 'be', 'bz', 'bj', 'bt', 
-    'bo', 'ba', 'bw', 'br', 'bn', 'bg', 'bf', 'bi', 'cv', 'kh', 'cm', 'ca', 'cf', 'td', 'cl', 'cn', 'co', 'km', 'cd', 'cg'
-]
-
-for cc in all_countries:
-    data["global"][cc] = {"petrol_usd": 1.25, "diesel": 1.15, "cng": 0.85}
-
+# গ্লোবাল ডেটা (সংক্ষিপ্ত করা হলো)
 custom_rates = {
     "us": {"petrol_usd": 1.05, "diesel": 1.10, "cng": 0.90},
-    "ae": {"petrol_aed": 3.22, "diesel": 3.30, "cng": 2.90},
-    "gb": {"petrol_usd": 1.85, "diesel": 1.90, "cng": 1.20},
-    "au": {"petrol_usd": 1.35, "diesel": 1.40, "cng": 1.10},
     "bd": {"petrol_usd": 1.12, "diesel": 0.98, "cng": 0.50}
 }
 for country_code, rate in custom_rates.items():
     data["global"][country_code] = rate
 
-# শক্তিশালী ব্রাউজার হেডার (যাতে ওয়েবসাইট বুঝতে না পারে যে এটা বট)
-req_headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-    'Accept-Language': 'en-US,en;q=0.9',
-    'Connection': 'keep-alive'
-}
+# Cloudscraper সেটআপ (এটি ওয়েবসাইটের ফায়ারওয়াল বাইপাস করবে)
+scraper = cloudscraper.create_scraper(
+    browser={
+        'browser': 'chrome',
+        'platform': 'windows',
+        'desktop': True
+    }
+)
 
 # পেট্রোল লাইভ ডেটা স্ক্র্যাপ
 try:
-    print("Fetching live petrol prices...")
-    response = requests.get('https://www.goodreturns.in/petrol-price.html', headers=req_headers, timeout=15)
+    print("Bypassing security for Petrol prices...")
+    response = scraper.get('https://www.goodreturns.in/petrol-price.html', timeout=20)
     
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
-        
         for a_tag in soup.find_all('a', href=True):
             if '-in-' in a_tag['href'] and '.html' in a_tag['href']:
                 state_slug = a_tag['href'].split('-in-')[-1].replace('.html', '').replace('-', '_').lower()
-                
                 if state_slug in data['india']:
                     row = a_tag.find_parent('tr')
                     if row:
@@ -88,7 +77,7 @@ try:
                                 data['india'][state_slug]['petrol'] = float(price_text)
                             except ValueError:
                                 pass
-        print("Petrol data updated!")
+        print("Petrol live data successfully fetched!")
     else:
         print(f"Petrol Fetch Failed. Status Code: {response.status_code}")
 except Exception as e:
@@ -96,16 +85,14 @@ except Exception as e:
 
 # ডিজেল লাইভ ডেটা স্ক্র্যাপ
 try:
-    print("Fetching live diesel prices...")
-    response = requests.get('https://www.goodreturns.in/diesel-price.html', headers=req_headers, timeout=15)
+    print("Bypassing security for Diesel prices...")
+    response = scraper.get('https://www.goodreturns.in/diesel-price.html', timeout=20)
     
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
-        
         for a_tag in soup.find_all('a', href=True):
             if '-in-' in a_tag['href'] and '.html' in a_tag['href']:
                 state_slug = a_tag['href'].split('-in-')[-1].replace('.html', '').replace('-', '_').lower()
-                
                 if state_slug in data['india']:
                     row = a_tag.find_parent('tr')
                     if row:
@@ -116,7 +103,7 @@ try:
                                 data['india'][state_slug]['diesel'] = float(price_text)
                             except ValueError:
                                 pass
-        print("Diesel data updated!")
+        print("Diesel live data successfully fetched!")
     else:
         print(f"Diesel Fetch Failed. Status Code: {response.status_code}")
 except Exception as e:
