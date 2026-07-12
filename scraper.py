@@ -1,7 +1,8 @@
 import json
 import datetime
-import cloudscraper
+import requests
 from bs4 import BeautifulSoup
+import re
 
 # ভারতের ২৮টি রাজ্যের কমপ্লিট ডেটাবেস (আপডেটেড ফলব্যাক)
 data = {
@@ -37,80 +38,66 @@ data = {
         "uttarakhand": {"petrol": 93.50, "diesel": 88.50, "cng": 83.00},
         "west_bengal": {"petrol": 113.87, "diesel": 100.15, "cng": 94.82}
     },
-    "global": {}
-}
-
-# গ্লোবাল ডেটা (সংক্ষিপ্ত করা হলো)
-custom_rates = {
-    "us": {"petrol_usd": 1.05, "diesel": 1.10, "cng": 0.90},
-    "bd": {"petrol_usd": 1.12, "diesel": 0.98, "cng": 0.50}
-}
-for country_code, rate in custom_rates.items():
-    data["global"][country_code] = rate
-
-# Cloudscraper সেটআপ (এটি ওয়েবসাইটের ফায়ারওয়াল বাইপাস করবে)
-scraper = cloudscraper.create_scraper(
-    browser={
-        'browser': 'chrome',
-        'platform': 'windows',
-        'desktop': True
+    "global": {
+        "us": {"petrol_usd": 1.05, "diesel": 1.10, "cng": 0.90},
+        "bd": {"petrol_usd": 1.12, "diesel": 0.98, "cng": 0.50}
     }
-)
+}
 
-# পেট্রোল লাইভ ডেটা স্ক্র্যাপ
-try:
-    print("Bypassing security for Petrol prices...")
-    response = scraper.get('https://www.goodreturns.in/petrol-price.html', timeout=20)
+req_headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+}
+
+def fetch_fuel_data(fuel_type):
+    # Multi-source API (প্রথমে NDTV, ফেইল হলে BankBazaar)
+    urls = [
+        f"https://www.ndtv.com/fuel-prices/{fuel_type}-price-in-india",
+        f"https://www.bankbazaar.com/fuel/{fuel_type}-price-india.html"
+    ]
     
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.text, 'html.parser')
-        for a_tag in soup.find_all('a', href=True):
-            if '-in-' in a_tag['href'] and '.html' in a_tag['href']:
-                state_slug = a_tag['href'].split('-in-')[-1].replace('.html', '').replace('-', '_').lower()
-                if state_slug in data['india']:
-                    row = a_tag.find_parent('tr')
-                    if row:
-                        cols = row.find_all('td')
-                        if len(cols) >= 3:
-                            price_text = cols[2].text.replace('₹', '').replace(',', '').strip()
-                            try:
-                                data['india'][state_slug]['petrol'] = float(price_text)
-                            except ValueError:
-                                pass
-        print("Petrol live data successfully fetched!")
-    else:
-        print(f"Petrol Fetch Failed. Status Code: {response.status_code}")
-except Exception as e:
-    print(f"Petrol Error: {e}")
+    for url in urls:
+        try:
+            print(f"Fetching {fuel_type} from: {url}")
+            res = requests.get(url, headers=req_headers, timeout=15)
+            
+            if res.status_code == 200:
+                soup = BeautifulSoup(res.text, 'html.parser')
+                success_count = 0
+                
+                # ওয়েবসাইটের যেকোনো টেবিল থেকে ডেটা বের করার ম্যাজিক লজিক
+                for table in soup.find_all('table'):
+                    for row in table.find_all('tr'):
+                        cols = row.find_all(['td', 'th'])
+                        if len(cols) >= 2:
+                            col0_text = cols[0].text.strip().lower()
+                            col1_text = cols[1].text.strip()
+                            
+                            # রাজ্যের নাম মিলিয়ে দেখা
+                            for state_key in data['india'].keys():
+                                search_state = state_key.replace("_", " ")
+                                if search_state in col0_text:
+                                    # দাম থেকে ফালতু টেক্সট (যেমন: Rs. বা /Ltr) বাদ দিয়ে শুধু সংখ্যা বের করা
+                                    price_match = re.search(r'\b\d{2,3}\.\d{2}\b', col1_text)
+                                    if price_match:
+                                        data['india'][state_key][fuel_type] = float(price_match.group())
+                                        success_count += 1
+                                        break
+                
+                if success_count > 10:
+                    print(f"✅ Successfully updated {success_count} states for {fuel_type} from {url}")
+                    return # প্রথম ওয়েবসাইট থেকে কাজ হয়ে গেলে লুপ বন্ধ করে দেবে
+            else:
+                print(f"⚠️ Blocked by {url} (Status: {res.status_code})")
+                
+        except Exception as e:
+            print(f"❌ Error with {url}: {e}")
 
-# ডিজেল লাইভ ডেটা স্ক্র্যাপ
-try:
-    print("Bypassing security for Diesel prices...")
-    response = scraper.get('https://www.goodreturns.in/diesel-price.html', timeout=20)
-    
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.text, 'html.parser')
-        for a_tag in soup.find_all('a', href=True):
-            if '-in-' in a_tag['href'] and '.html' in a_tag['href']:
-                state_slug = a_tag['href'].split('-in-')[-1].replace('.html', '').replace('-', '_').lower()
-                if state_slug in data['india']:
-                    row = a_tag.find_parent('tr')
-                    if row:
-                        cols = row.find_all('td')
-                        if len(cols) >= 3:
-                            price_text = cols[2].text.replace('₹', '').replace(',', '').strip()
-                            try:
-                                data['india'][state_slug]['diesel'] = float(price_text)
-                            except ValueError:
-                                pass
-        print("Diesel live data successfully fetched!")
-    else:
-        print(f"Diesel Fetch Failed. Status Code: {response.status_code}")
-except Exception as e:
-    print(f"Diesel Error: {e}")
+# স্ক্র্যাপার রান করানো
+fetch_fuel_data('petrol')
+fetch_fuel_data('diesel')
 
-# JSON তৈরি ও সেভ
+# JSON ফাইল সেভ
 with open('fuel_prices.json', 'w', encoding='utf-8') as f:
     json.dump(data, f, indent=4, ensure_ascii=False)
     
-print("JSR-OS Global Fuel API completed!")
+print("JSR-OS Global Fuel API updated successfully using Smart Scraper!")
