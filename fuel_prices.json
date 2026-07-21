@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-07-20 05:54:57.331775",
+    "last_updated": "2026-07-21 05:36:06.068202",
     "india": {
         "andhra_pradesh": {
             "petrol": 109.5,
@@ -27,7 +27,7 @@
             "cng": 80.0
         },
         "delhi": {
-            "petrol": 83.09,
+            "petrol": 102.12,
             "diesel": 87.62,
             "cng": 74.09
         },
@@ -38,7 +38,7 @@
         },
         "gujarat": {
             "petrol": 101.83,
-            "diesel": 101.83,
+            "diesel": 97.92,
             "cng": 76.0
         },
         "haryana": {
