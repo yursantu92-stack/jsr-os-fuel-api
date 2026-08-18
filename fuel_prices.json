@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-08-17 03:27:48.829419",
+    "last_updated": "2026-08-18 03:23:38.912934",
     "india": {
         "andhra_pradesh": {
             "petrol": 109.5,
@@ -12,7 +12,7 @@
             "cng": 75.0
         },
         "assam": {
-            "petrol": 97.23,
+            "petrol": 105.73,
             "diesel": 97.23,
             "cng": 85.0
         },
@@ -57,7 +57,7 @@
             "cng": 85.0
         },
         "karnataka": {
-            "petrol": 102.5,
+            "petrol": 110.93,
             "diesel": 88.5,
             "cng": 82.0
         },
