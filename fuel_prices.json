@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-09-04 07:22:51.250723",
+    "last_updated": "2026-09-05 07:05:09.791869",
     "india": {
         "andhra_pradesh": {
             "petrol": 109.5,
@@ -18,7 +18,7 @@
         },
         "bihar": {
             "petrol": 116.64,
-            "diesel": 104.34,
+            "diesel": 116.64,
             "cng": 88.0
         },
         "chhattisgarh": {
@@ -118,12 +118,12 @@
         },
         "tamil_nadu": {
             "petrol": 107.74,
-            "diesel": 99.55,
+            "diesel": 92.5,
             "cng": 84.0
         },
         "telangana": {
             "petrol": 115.73,
-            "diesel": 115.73,
+            "diesel": 103.82,
             "cng": 92.0
         },
         "tripura": {
