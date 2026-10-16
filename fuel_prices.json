@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-10-15 07:40:36.739729",
+    "last_updated": "2026-10-16 07:27:34.354341",
     "india": {
         "andhra_pradesh": {
             "petrol": 109.5,
@@ -17,7 +17,7 @@
             "cng": 85.0
         },
         "bihar": {
-            "petrol": 116.64,
+            "petrol": 89.17,
             "diesel": 104.34,
             "cng": 88.0
         },
@@ -28,7 +28,7 @@
         },
         "delhi": {
             "petrol": 102.12,
-            "diesel": 87.62,
+            "diesel": 86.98,
             "cng": 74.09
         },
         "goa": {
@@ -63,12 +63,12 @@
         },
         "kerala": {
             "petrol": 115.34,
-            "diesel": 104.15,
+            "diesel": 115.34,
             "cng": 85.0
         },
         "madhya_pradesh": {
-            "petrol": 106.5,
-            "diesel": 99.64,
+            "petrol": 114.54,
+            "diesel": 114.54,
             "cng": 90.0
         },
         "maharashtra": {
@@ -107,8 +107,8 @@
             "cng": 82.0
         },
         "rajasthan": {
-            "petrol": 112.66,
-            "diesel": 112.66,
+            "petrol": 104.5,
+            "diesel": 97.78,
             "cng": 85.0
         },
         "sikkim": {
