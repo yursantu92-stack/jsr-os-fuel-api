@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-11-01 09:35:18.613683",
+    "last_updated": "2026-11-02 09:51:38.674089",
     "india": {
         "andhra_pradesh": {
             "petrol": 109.5,
@@ -28,7 +28,7 @@
         },
         "delhi": {
             "petrol": 102.12,
-            "diesel": 102.12,
+            "diesel": 87.62,
             "cng": 74.09
         },
         "goa": {
@@ -53,16 +53,16 @@
         },
         "jharkhand": {
             "petrol": 105.26,
-            "diesel": 100.49,
+            "diesel": 105.26,
             "cng": 85.0
         },
         "karnataka": {
-            "petrol": 102.5,
+            "petrol": 110.93,
             "diesel": 88.5,
             "cng": 82.0
         },
         "kerala": {
-            "petrol": 115.34,
+            "petrol": 104.15,
             "diesel": 104.15,
             "cng": 85.0
         },
@@ -133,7 +133,7 @@
         },
         "uttar_pradesh": {
             "petrol": 101.86,
-            "diesel": 87.5,
+            "diesel": 95.36,
             "cng": 79.0
         },
         "uttarakhand": {
